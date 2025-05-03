@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  ms-tesseract-api:
+    container_name: ms-tesseract-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    networks:
+      - n8n_n8n_network
+
+networks:
+  n8n_n8n_network:
+    external: true
