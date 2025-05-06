@@ -2,19 +2,19 @@ import express, { Request, Response } from 'express';
 import multer from 'multer';
 import { execSync } from 'child_process';
 import fs from 'fs';
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 import { PROPS } from './config/props.config';
+import { HTTP_STATUS } from './commons/constant';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const fileName = fileURLToPath(import.meta.url);
+const dirName = dirname(fileName);
 
 const app = express();
 const upload = multer({ dest: './images' });
 
-const dir = path.join(__dirname, 'images');
+const dir = path.join(dirName, 'images');
 console.log('buscando directorio...');
 if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
@@ -27,7 +27,7 @@ app.post('/ocr', upload.single('image'), (req: Request, res: Response) => {
     console.log('Request recibido. Archivo:', req.file); // Debug
     if (!req.file) {
       console.log('Detalles de la petición:', req.headers, req.body); // Más debug
-      return res.status(400).json({ error: 'No se recibió ningún archivo' });
+      return res.status(HTTP_STATUS.BAD_REQUEST).json({ error: 'No se recibió ningún archivo' });
     }
 
     const imagePath = req.file.path;
@@ -68,7 +68,7 @@ Fecha y hora:\n
 Código de operación:\n
 01400154\n 
      */
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
 });

@@ -5,7 +5,7 @@ import love from 'eslint-config-love'
 
 export default [
   {
-    ...love, 
+    ...love,
     files: ['**/*.{js,mjs,cjs,ts}']
   },
   {
@@ -13,4 +13,13 @@ export default [
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    rules: {
+      // 'no-console': 'off',
+      // 'no-magic-numbers': 'off',
+      // '@typescript-eslint/no-unsafe-assignment': 'off',
+      // 'prefer-destructuring': 'off',
+      // '@typescript-eslint/require-description': 'off',
+    },
+  }
 ]
