@@ -31,3 +31,27 @@ npm -D i jest ts-jest @types/jest supertest @types/supertest
 npx ts-jest config:init
 
 ```
+
+## Docker
+
+```bash
+docker compose up --build -d
+
+find / -name "docker-compose.yml" 2>/dev/null
+
+# deteiene pero no elimina los volumenes
+docker compose down
+
+# detiene contendores y eliminas todos los volumenes
+docker-compose down -v
+```
+
+## Monitoring
+
+```
+htop
+
+top
+
+docker stats
+```
